@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ityls.web.menu.mapper.MenuMapper">
+
+
+    <select id="getMenuByUserId" resultType="com.ityls.web.menu.entity.Menu">
+        select sm.*
+        from sys_user_role as sur
+        left join sys_role as sr on sur.role_id = sr.role_id
+        left join sys_role_menu as srm on sr.role_id = srm.role_id
+        left join sys_menu as sm on srm.menu_id = sm.menu_id
+        where sur.user_id = #{userId}
+        order by sm.order_num asc
+
+    </select>
+
+    <select id="getMenuByUserIdForLiveUser" resultType="com.ityls.web.menu.entity.Menu">
+        select m.*
+        from live_role as lr
+        left join sys_role as sr on lr.role_id = sr.role_id
+        left join sys_role_menu as srm on sr.role_id = srm.role_id
+        left join sys_menu as sm on srm.menu_id = sm.menu_id
+        where lr.user_id = #{userId}
+        order by sm.order_num asc
+
+    </select>
+
+
+    <select id="getMenuByRoleId" resultType="com.ityls.web.menu.entity.Menu">
+        select m.* from  sys_role_menu as srm,sys_menu as sm
+        where srm.menu_id = sm.menu_id and srm.role_id = #{roleId}
+
+    </select>
+
+</mapper>

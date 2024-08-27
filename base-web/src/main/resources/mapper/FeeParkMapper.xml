@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ityls.web.fee_park.mapper.FeeParkMapper">
+
+
+    <select id="getList" resultType="com.ityls.web.fee_park.entity.FeePark">
+        select lu.login_name,lu.phone,fp.*,pl.park_name,pl.park_type
+        from fee_park as fp
+        left join live_user as lu on fp.user_id = lu.user_id
+        left join parking_list as pl on pl.park_id = fp.park_id
+
+    </select>
+</mapper>
